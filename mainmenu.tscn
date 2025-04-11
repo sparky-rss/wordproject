@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkjpbwsbu1f"]
+
+[ext_resource type="Script" uid="uid://sm7gpbegacvp" path="res://mainmenu.gd" id="1_flfoa"]
+
+[node name="mainmenu" type="Node2D"]
+script = ExtResource("1_flfoa")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -165.0
+offset_top = -325.0
+offset_right = 139.0
+offset_bottom = -215.0
+theme_override_font_sizes/font_size = 80
+text = "Tri Word"
+horizontal_alignment = 1
+
+[node name="StartGameButton" type="Button" parent="."]
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 75.0
+text = "Start New Game"
+
+[node name="HowToPlayButton" type="Button" parent="."]
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 175.0
+text = "How To Play
+"
+
+[node name="CreditsButton" type="Button" parent="."]
+offset_left = -100.0
+offset_top = 200.0
+offset_right = 100.0
+offset_bottom = 275.0
+text = "Credits"
+
+[connection signal="pressed" from="StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
+[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]

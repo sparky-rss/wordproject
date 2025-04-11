@@ -1801,11 +1801,13 @@ func game_over():
 	is_game_over = true
 	get_node("GameOver").show()
 	get_node("Retry").show()
+	get_node("MainMenuButton").show()
 	
 func you_win():
 	is_game_over = true
 	get_node("YouWin").show()
 	get_node("Retry").show()
+	get_node("MainMenuButton").show()
 
 func move_left_cursor(target_position : Vector2):
 	get_node("LeftCursor").position.y = target_position.y
@@ -1833,3 +1835,6 @@ func return_unique_array(input_array: Array) -> Array:
 
 func _on_retry_pressed() -> void:
 	get_tree().change_scene_to_file("res://main.tscn")
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://mainmenu.tscn")

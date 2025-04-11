@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="WordProject"
-run/main_scene="uid://bp6cdrgsbtrj6"
+run/main_scene="uid://bkjpbwsbu1f"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
