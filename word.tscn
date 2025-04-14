@@ -1,0 +1,694 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcwdenh7s68g7"]
+
+[ext_resource type="Script" uid="uid://c8xo18bqg6tqm" path="res://node_2d.gd" id="1_3q3ku"]
+[ext_resource type="Script" uid="uid://ti876eyreec1" path="res://draganddrop.gd" id="2_5kvxf"]
+[ext_resource type="Script" uid="uid://sn14dcghr4vv" path="res://drop_zone.gd" id="4_1amgx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5kvxf"]
+size = Vector2(112, 46)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_3q3ku")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="LeftCursor" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "?"
+
+[node name="RightCursor" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "?"
+
+[node name="Lives" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -105.5
+offset_top = -298.0
+offset_right = 106.5
+offset_bottom = -215.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "Lives: 3"
+horizontal_alignment = 1
+
+[node name="GameOver" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -329.0
+offset_top = -88.0
+offset_right = -129.0
+offset_bottom = 81.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "Game Over"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="YouWin" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -359.0
+offset_right = -34.0
+offset_bottom = 83.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "You Win!"
+
+[node name="Valid" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 73.0
+offset_top = 148.0
+offset_right = 398.0
+offset_bottom = 249.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "That word is valid, but not 
+what we're looking for.
+
+We won't make you lose a life for that. :)"
+horizontal_alignment = 1
+
+[node name="Retry" type="Button" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 165.0
+offset_top = 99.0
+offset_right = 299.0
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "New Game"
+
+[node name="CheckAnswers" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = 273.0
+offset_right = 68.0
+offset_bottom = 315.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Check Answers"
+
+[node name="MainMenuButton" type="Button" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -286.0
+offset_top = 115.0
+offset_right = -186.0
+offset_bottom = 259.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Return to Main Menu"
+autowrap_mode = 2
+
+[node name="Left1" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left1"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left1/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left1"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left2" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left2"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left2/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left2"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left3" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left3"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left3/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left3"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left4" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left4"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left4/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left4"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left5" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left5"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left5/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left5"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left6" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left6"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left6/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left6"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left7" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left7"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left7/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left7"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left8" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left8"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left8/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left8"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left9" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left9"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left9/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left9"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Left0" type="Node2D" parent="." groups=["left_word"]]
+z_index = 1
+position = Vector2(-313, -202)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Left0"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left0/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Left0"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Left1"
+
+[node name="Right1" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right1"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right1/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right1"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right2" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right2"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right2/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right2"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right3" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right3"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right3/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right3"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right4" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right4"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right4/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right4"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right5" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right5"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right5/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right5"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right6" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right6"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right6/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right6"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right7" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right7"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right7/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right7"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right8" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right8"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right8/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right8"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right9" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right9"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right9/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right9"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Right0" type="Node2D" parent="." groups=["right_word"]]
+z_index = 1
+position = Vector2(323, -221)
+script = ExtResource("2_5kvxf")
+
+[node name="Area2D" type="Area2D" parent="Right0"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right0/Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_5kvxf")
+
+[node name="Label" type="Label" parent="Right0"]
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 25.0
+offset_bottom = 12.0
+text = "Right1"
+
+[node name="Drop_Zone" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, -200)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone2" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, -150)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone3" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, -100)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone4" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, -50)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone5" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, 0)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone6" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, 50)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone7" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, 100)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone8" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, 150)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone9" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, 200)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone10" type="Marker2D" parent="." groups=["left_zone"]]
+position = Vector2(-400, 250)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone11" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, -200)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone12" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, -150)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone13" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, -100)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone14" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, -50)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone15" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, 0)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone16" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, 50)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone17" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, 100)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone18" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, 150)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone19" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, 200)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone20" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+position = Vector2(-50, 250)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone21" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, -200)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone22" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, -150)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone23" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, -100)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone24" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, -50)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone25" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, 0)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone26" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, 50)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone27" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, 100)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone28" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, 150)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone29" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, 200)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone30" type="Marker2D" parent="." groups=["right_zone"]]
+position = Vector2(400, 250)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone31" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, -200)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone32" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, -150)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone33" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, -100)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone34" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, -50)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone35" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, 0)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone36" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, 50)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone37" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, 100)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone38" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, 150)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone39" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, 200)
+script = ExtResource("4_1amgx")
+
+[node name="Drop_Zone40" type="Marker2D" parent="." groups=["answers", "right_zone"]]
+position = Vector2(50, 250)
+script = ExtResource("4_1amgx")
+
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="CheckAnswers" to="." method="_on_check_answers_pressed"]
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="input_event" from="Left1/Area2D" to="Left1" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left2/Area2D" to="Left2" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left3/Area2D" to="Left3" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left4/Area2D" to="Left4" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left5/Area2D" to="Left5" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left6/Area2D" to="Left6" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left7/Area2D" to="Left7" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left8/Area2D" to="Left8" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left9/Area2D" to="Left9" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Left0/Area2D" to="Left0" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right1/Area2D" to="Right1" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right2/Area2D" to="Right2" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right3/Area2D" to="Right3" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right4/Area2D" to="Right4" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right5/Area2D" to="Right5" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right6/Area2D" to="Right6" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right7/Area2D" to="Right7" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right8/Area2D" to="Right8" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right9/Area2D" to="Right9" method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Right0/Area2D" to="Right0" method="_on_area_2d_input_event"]

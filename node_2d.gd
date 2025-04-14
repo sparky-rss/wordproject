@@ -4,6 +4,7 @@ var left_toggled_array : Array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var right_toggled_array : Array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var proposed_left : String = ""
 var proposed_right : String = ""
+var word_array : Array = []
 var lives : int = 3
 var total_matched : int = 0
 var is_game_over : bool = false
@@ -1618,18 +1619,16 @@ func _ready() -> void:
 	var ten_words : Array = get_ten_words(first_halves, second_halves)
 	
 	for i in ten_words.size():
-		var check_button_left = Button.new()
-		var check_button_right = Button.new()
-		check_button_left.text = first_halves[ten_words[i]]
-		check_button_right.text = second_halves[ten_words[i]]
-		var left_position = Vector2(-300, -240 + (50 * i))
-		check_button_left.position = left_position
-		check_button_left.connect("pressed",_leftpressed.bind(i, left_position, check_button_left, check_button_right))
-		var right_position = Vector2(200, -240 + (50 * second_position[i]))
-		check_button_right.position = right_position
-		check_button_right.connect("pressed",_rightpressed.bind(i, right_position, check_button_left, check_button_right))
-		add_child(check_button_left)
-		add_child(check_button_right)
+		var target_node_left = get_node(str("Left",i,))
+		var target_node_right = get_node(str("Right",second_position[i]))
+		target_node_left.word_chunk = first_halves[ten_words[i]]
+		target_node_right.word_chunk = second_halves[ten_words[i]]
+		word_array.append(str(first_halves[ten_words[i]], second_halves[ten_words[i]]))
+		print(word_array)
+		var target_label_left = get_node(str("Left",i,"/Label"))
+		var target_label_right = get_node(str("Right",second_position[i],"/Label"))
+		target_label_left.text = first_halves[ten_words[i]]
+		target_label_right.text = second_halves[ten_words[i]]
 		
 	##save file routines - for testing
 	##C:\Users\rsieg\AppData\Roaming\Godot\app_userdata\WordProject
@@ -1663,6 +1662,14 @@ func _ready() -> void:
 	#else:
 		#print("Failed to open files.")
 		
+func _process(delta: float) -> void:
+	var answer_nodes = get_tree().get_nodes_in_group("answers")
+	var all_answered : bool = true
+	for i in answer_nodes:
+		if !i.taken:
+			all_answered = false
+	get_node("CheckAnswers").disabled = !all_answered
+	
 func get_ten_words(first_halves: Array, second_halves: Array) -> Array:
 	var output : Array = []
 	var proposed_output = []
@@ -1684,116 +1691,6 @@ func get_ten_words(first_halves: Array, second_halves: Array) -> Array:
 			test_first_halves = []
 			test_second_halves = []
 	return output
-	
-func _leftpressed(index : int, target_position : Vector2, left_button : Node, right_button: Node):
-	if is_game_over:
-		return
-	if get_node("LeftCursor").text == "X" or get_node("LeftCursor").text == "OK":
-		get_node("LeftCursor").text = "?"
-		get_node("RightCursor").text = "?"
-		get_node("RightCursor").hide()
-	if get_node("Valid").visible:
-		get_node("Valid").hide()
-	
-	proposed_left = left_button.text
-	
-	if left_toggled_array[index] == 0:
-		for i in left_toggled_array.size():
-			if left_toggled_array[i] == 0 and i == index:
-				left_toggled_array[i] = 1
-			elif left_toggled_array[i] == 1:
-				left_toggled_array[i] = 0
-	elif left_toggled_array[index] == 1:
-		left_toggled_array[index] = 0
-	move_left_cursor(target_position)
-	var is_match = check_match()
-	var is_mismatch = check_mismatch()
-	if is_match:
-		process_match(left_button, right_button)
-	if is_mismatch:
-		process_mismatch(str(proposed_left, proposed_right))
-	
-func _rightpressed(index : int, target_position : Vector2, left_button : Node, right_button: Node):
-	if is_game_over:
-		return
-	if get_node("RightCursor").text == "X" or get_node("RightCursor").text == "OK":
-		get_node("LeftCursor").text = "?"
-		get_node("RightCursor").text = "?"
-		get_node("LeftCursor").hide()
-	if get_node("Valid").visible:
-		get_node("Valid").hide()
-		
-	proposed_right = right_button.text
-	
-	if right_toggled_array[index] == 0:
-		for i in right_toggled_array.size():
-			if right_toggled_array[i] == 0 and i == index:
-				right_toggled_array[i] = 1
-			elif right_toggled_array[i] == 1:
-				right_toggled_array[i] = 0
-	elif right_toggled_array[index] == 1:
-		right_toggled_array[index] = 0
-	move_right_cursor(target_position)
-	var is_match = check_match()
-	var is_mismatch = check_mismatch()
-	if is_match:
-		process_match(left_button, right_button)
-	if is_mismatch:
-		process_mismatch(str(proposed_left, proposed_right))
-
-func check_match() -> bool:
-	for i in left_toggled_array.size():
-		if left_toggled_array[i] == 1 and right_toggled_array[i] == 1:
-			left_toggled_array[i] = 2
-			right_toggled_array[i] = 2
-			return true
-	return false
-			
-func check_mismatch() -> bool:
-	for i in left_toggled_array.size():
-		if left_toggled_array[i] == 1:
-			for j in right_toggled_array.size():
-				if right_toggled_array[j] == 1 and i != j:
-					left_toggled_array[i] = 0
-					right_toggled_array[j] = 0
-					return true
-	return false
-
-func process_match(left_button : Node, right_button: Node):
-	var correct_left = Label.new()
-	var correct_right = Label.new()
-	correct_left.text = "Matched!"
-	correct_right.text = "Matched!"
-	correct_left.position = get_node("LeftCursor").position
-	correct_right.position = get_node("RightCursor").position
-	correct_left.show()
-	correct_right.show()
-	add_child(correct_left)
-	add_child(correct_right)
-	get_node("LeftCursor").hide()
-	get_node("RightCursor").hide()
-	left_button.disconnect("pressed",_leftpressed)
-	right_button.disconnect("pressed",_rightpressed)
-	total_matched += 1
-	if total_matched >= 10:
-		you_win()
-
-func process_mismatch(word : String):
-	var is_valid_word : bool = false
-	for i in wordlist:
-		if i == word:
-			is_valid_word = true
-	if is_valid_word:
-		get_node("Valid").show()
-		get_node("LeftCursor").text = "OK"
-		get_node("RightCursor").text = "OK"
-	else:
-		lives -= 1
-		get_node("Lives").text = str("Lives: ", lives)
-		if lives <= 0:
-			game_over()
-		get_node("LeftCursor").text = "X"
-		get_node("RightCursor").text = "X"
 
 func game_over():
 	is_game_over = true
@@ -1806,16 +1703,6 @@ func you_win():
 	get_node("YouWin").show()
 	get_node("Retry").show()
 	get_node("MainMenuButton").show()
-
-func move_left_cursor(target_position : Vector2):
-	get_node("LeftCursor").position.y = target_position.y
-	get_node("LeftCursor").position.x = target_position.x - 100
-	get_node("LeftCursor").show()
-	
-func move_right_cursor(target_position : Vector2):
-	get_node("RightCursor").position.y = target_position.y
-	get_node("RightCursor").position.x = target_position.x + 100
-	get_node("RightCursor").show()
 
 func return_unique_array(input_array: Array) -> Array:
 	var unique_values : Array = []
@@ -1836,3 +1723,46 @@ func _on_retry_pressed() -> void:
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://mainmenu.tscn")
+
+func _on_check_answers_pressed() -> void:
+	var answer1 : String = str(get_node("Drop_Zone11").word_chunk, get_node("Drop_Zone31").word_chunk)
+	var answer2 : String = str(get_node("Drop_Zone12").word_chunk, get_node("Drop_Zone32").word_chunk)
+	var answer3 : String = str(get_node("Drop_Zone13").word_chunk, get_node("Drop_Zone33").word_chunk)
+	var answer4 : String = str(get_node("Drop_Zone14").word_chunk, get_node("Drop_Zone34").word_chunk)
+	var answer5 : String = str(get_node("Drop_Zone15").word_chunk, get_node("Drop_Zone35").word_chunk)
+	var answer6 : String = str(get_node("Drop_Zone16").word_chunk, get_node("Drop_Zone36").word_chunk)
+	var answer7: String = str(get_node("Drop_Zone17").word_chunk, get_node("Drop_Zone37").word_chunk)
+	var answer8 : String = str(get_node("Drop_Zone18").word_chunk, get_node("Drop_Zone38").word_chunk)
+	var answer9 : String = str(get_node("Drop_Zone19").word_chunk, get_node("Drop_Zone39").word_chunk)
+	var answer10 : String = str(get_node("Drop_Zone20").word_chunk, get_node("Drop_Zone40").word_chunk)
+	var answers : Array = [answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10]
+	
+	var correct : int = 0
+	var incorrect : int = 0
+	var correct_but_not_included : int = 0
+	
+	
+	for i in answers:
+		var found = false
+		for j in word_array:
+			if i == j:
+				found = true
+				correct += 1
+				correct_but_not_included -= 1
+		for j in wordlist:
+			if i == j:
+				found = true
+				correct_but_not_included += 1
+		if !found:
+			incorrect += 1
+	if correct + correct_but_not_included == 10:
+		you_win()
+	else:
+		lives -= 1
+		get_node("Lives").text = str("Lives: ", lives)
+		if lives <= 0:
+			game_over()
+		else:
+			get_node("Valid").text = str("Correct: ",correct,"\nReal Word but not included: ",correct_but_not_included,"\nWrong: ",incorrect)
+			get_node("Valid").show()
+	
