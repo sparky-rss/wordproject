@@ -27,8 +27,8 @@ func _ready():
 		right_rest_nodes[i].select()
 		right_words_array[i].targeted_rest_node = right_rest_nodes[i]
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if Input.is_action_just_pressed("Click"):
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if Input.is_action_just_pressed("Click") or event == InputEventScreenTouch and is_inside_tree():
 		selected = true
 
 func _physics_process(delta: float) -> void:
@@ -39,44 +39,50 @@ func _physics_process(delta: float) -> void:
 		targeted_rest_node.word_chunk = self.word_chunk
 
 func _input(event):
-	if not selected:
+	if not selected and is_inside_tree():
 		return # Only handle input for the selected (dragged) node
 
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and is_inside_tree():
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
-			selected = false
+			release()
+	if event is InputEventScreenTouch and is_inside_tree():
+		if event.pressed == false:
+			release()
 
-			var zone_data = _get_zone_data()
-			var rest_nodes = zone_data["rest_nodes"]
-			var word_array = zone_data["word_array"]
+func release():
+	selected = false
 
-			var shortest_dist = min(75, global_position.distance_to(targeted_rest_node.global_position))
-			var closest_node = targeted_rest_node
+	var zone_data = _get_zone_data()
+	var rest_nodes = zone_data["rest_nodes"]
+	var word_array = zone_data["word_array"]
 
-			for node in rest_nodes:
-				var distance = global_position.distance_to(node.global_position)
-				if distance < shortest_dist:
-					closest_node = node
-					shortest_dist = distance
+	var shortest_dist = min(75, global_position.distance_to(targeted_rest_node.global_position))
+	var closest_node = targeted_rest_node
 
-			if closest_node == targeted_rest_node:
-				return
-			elif !closest_node.taken:
-				targeted_rest_node.deselect()
-				targeted_rest_node = closest_node
-				closest_node.select()
-			else:
-				var other_word = _get_word_at_rest_node(word_array, closest_node)
-				if other_word:
-					var old_node = targeted_rest_node
-					targeted_rest_node.deselect()
+	for node in rest_nodes:
+		var distance = global_position.distance_to(node.global_position)
+		if distance < shortest_dist:
+			closest_node = node
+			shortest_dist = distance
 
-					# Swap targets
-					other_word.targeted_rest_node = old_node
-					old_node.select()
+	if closest_node == targeted_rest_node:
+		return
+	elif !closest_node.taken:
+		targeted_rest_node.deselect()
+		targeted_rest_node = closest_node
+		closest_node.select()
+	else:
+		var other_word = _get_word_at_rest_node(word_array, closest_node)
+		if other_word:
+			var old_node = targeted_rest_node
+			targeted_rest_node.deselect()
 
-					targeted_rest_node = closest_node
-					targeted_rest_node.select()
+			# Swap targets
+			other_word.targeted_rest_node = old_node
+			old_node.select()
+
+			targeted_rest_node = closest_node
+			targeted_rest_node.select()
 
 func _get_zone_data() -> Dictionary:
 	if self.is_in_group("left_word"):

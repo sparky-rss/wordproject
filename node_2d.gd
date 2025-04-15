@@ -1,10 +1,15 @@
 extends Node2D
 
+var first_halves : Array = []
+var second_halves : Array = []
+var second_position : Array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	
 var left_toggled_array : Array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var right_toggled_array : Array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var proposed_left : String = ""
 var proposed_right : String = ""
 var word_array : Array = []
+var ten_words : Array = []
 var lives : int = 3
 var total_matched : int = 0
 var is_game_over : bool = false
@@ -1606,17 +1611,13 @@ var wordlist : Array = [
 "zoster","zouave","zounds","zoysia","zydeco","zygoid","zygoma","zygose","zygote","zymase" ]
 
 func _ready() -> void:
-	var first_halves : Array = []
-	var second_halves : Array = []
-	var second_position : Array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-	
 	second_position.shuffle()
 	
 	for i in wordlist:
 		first_halves.append(str(i.substr(0, 3)))
 		second_halves.append(str(i.substr(3, 3)))
 
-	var ten_words : Array = get_ten_words(first_halves, second_halves)
+	ten_words = get_ten_words()
 	
 	for i in ten_words.size():
 		var target_node_left = get_node(str("Left",i,))
@@ -1624,7 +1625,6 @@ func _ready() -> void:
 		target_node_left.word_chunk = first_halves[ten_words[i]]
 		target_node_right.word_chunk = second_halves[ten_words[i]]
 		word_array.append(str(first_halves[ten_words[i]], second_halves[ten_words[i]]))
-		print(word_array)
 		var target_label_left = get_node(str("Left",i,"/Label"))
 		var target_label_right = get_node(str("Right",second_position[i],"/Label"))
 		target_label_left.text = first_halves[ten_words[i]]
@@ -1662,7 +1662,7 @@ func _ready() -> void:
 	#else:
 		#print("Failed to open files.")
 		
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var answer_nodes = get_tree().get_nodes_in_group("answers")
 	var all_answered : bool = true
 	for i in answer_nodes:
@@ -1670,7 +1670,7 @@ func _process(delta: float) -> void:
 			all_answered = false
 	get_node("CheckAnswers").disabled = !all_answered
 	
-func get_ten_words(first_halves: Array, second_halves: Array) -> Array:
+func get_ten_words() -> Array:
 	var output : Array = []
 	var proposed_output = []
 	var test_first_halves : Array = []
@@ -1694,13 +1694,18 @@ func get_ten_words(first_halves: Array, second_halves: Array) -> Array:
 
 func game_over():
 	is_game_over = true
+	get_node("TimerLabel/Timer").stop()
 	get_node("GameOver").show()
+	get_node("Valid").hide()
 	get_node("Retry").show()
+	get_node("CheckAnswers").text = "Show Answers"
 	get_node("MainMenuButton").show()
 	
 func you_win():
 	is_game_over = true
+	get_node("TimerLabel/Timer").stop()
 	get_node("YouWin").show()
+	get_node("Valid").hide()
 	get_node("Retry").show()
 	get_node("MainMenuButton").show()
 
@@ -1719,50 +1724,84 @@ func return_unique_array(input_array: Array) -> Array:
 	return unique_values
 
 func _on_retry_pressed() -> void:
-	get_tree().change_scene_to_file("res://main.tscn")
+	get_tree().change_scene_to_file("res://word.tscn")
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://mainmenu.tscn")
 
 func _on_check_answers_pressed() -> void:
-	var answer1 : String = str(get_node("Drop_Zone11").word_chunk, get_node("Drop_Zone31").word_chunk)
-	var answer2 : String = str(get_node("Drop_Zone12").word_chunk, get_node("Drop_Zone32").word_chunk)
-	var answer3 : String = str(get_node("Drop_Zone13").word_chunk, get_node("Drop_Zone33").word_chunk)
-	var answer4 : String = str(get_node("Drop_Zone14").word_chunk, get_node("Drop_Zone34").word_chunk)
-	var answer5 : String = str(get_node("Drop_Zone15").word_chunk, get_node("Drop_Zone35").word_chunk)
-	var answer6 : String = str(get_node("Drop_Zone16").word_chunk, get_node("Drop_Zone36").word_chunk)
-	var answer7: String = str(get_node("Drop_Zone17").word_chunk, get_node("Drop_Zone37").word_chunk)
-	var answer8 : String = str(get_node("Drop_Zone18").word_chunk, get_node("Drop_Zone38").word_chunk)
-	var answer9 : String = str(get_node("Drop_Zone19").word_chunk, get_node("Drop_Zone39").word_chunk)
-	var answer10 : String = str(get_node("Drop_Zone20").word_chunk, get_node("Drop_Zone40").word_chunk)
-	var answers : Array = [answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10]
-	
-	var correct : int = 0
-	var incorrect : int = 0
-	var correct_but_not_included : int = 0
-	
-	
-	for i in answers:
-		var found = false
-		for j in word_array:
-			if i == j:
-				found = true
-				correct += 1
-				correct_but_not_included -= 1
-		for j in wordlist:
-			if i == j:
-				found = true
-				correct_but_not_included += 1
-		if !found:
-			incorrect += 1
-	if correct + correct_but_not_included == 10:
-		you_win()
-	else:
-		lives -= 1
-		get_node("Lives").text = str("Lives: ", lives)
-		if lives <= 0:
-			game_over()
+	if not is_game_over:
+		var answer1 : String = str(get_node("Drop_Zone11").word_chunk, get_node("Drop_Zone31").word_chunk)
+		var answer2 : String = str(get_node("Drop_Zone12").word_chunk, get_node("Drop_Zone32").word_chunk)
+		var answer3 : String = str(get_node("Drop_Zone13").word_chunk, get_node("Drop_Zone33").word_chunk)
+		var answer4 : String = str(get_node("Drop_Zone14").word_chunk, get_node("Drop_Zone34").word_chunk)
+		var answer5 : String = str(get_node("Drop_Zone15").word_chunk, get_node("Drop_Zone35").word_chunk)
+		var answer6 : String = str(get_node("Drop_Zone16").word_chunk, get_node("Drop_Zone36").word_chunk)
+		var answer7: String = str(get_node("Drop_Zone17").word_chunk, get_node("Drop_Zone37").word_chunk)
+		var answer8 : String = str(get_node("Drop_Zone18").word_chunk, get_node("Drop_Zone38").word_chunk)
+		var answer9 : String = str(get_node("Drop_Zone19").word_chunk, get_node("Drop_Zone39").word_chunk)
+		var answer10 : String = str(get_node("Drop_Zone20").word_chunk, get_node("Drop_Zone40").word_chunk)
+		var answers : Array = [answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10]
+		
+		var correct : int = 0
+		var incorrect : int = 0
+		var correct_but_not_included : int = 0
+		
+		
+		for i in answers:
+			var found = false
+			for j in word_array:
+				if i == j:
+					found = true
+					correct += 1
+					correct_but_not_included -= 1
+			for j in wordlist:
+				if i == j:
+					found = true
+					correct_but_not_included += 1
+			if !found:
+				incorrect += 1
+		if correct + correct_but_not_included == 10:
+			you_win()
 		else:
-			get_node("Valid").text = str("Correct: ",correct,"\nReal Word but not included: ",correct_but_not_included,"\nWrong: ",incorrect)
-			get_node("Valid").show()
+			lives -= 1
+			get_node("Lives").text = str("Lives: ", lives)
+			if lives <= 0:
+				game_over()
+			else:
+				get_node("Valid").text = str("Correct: ",correct,"\nReal Word but not included: ",correct_but_not_included,"\nWrong: ",incorrect)
+				get_node("Valid").show()
+	else:
+		for i in ten_words.size():
+			var target_node_left = get_node(str("Left",i,))
+			var target_node_right = get_node(str("Right",i))
+			target_node_left.word_chunk = first_halves[ten_words[i]]
+			target_node_right.word_chunk = second_halves[ten_words[i]]
+			var target_label_left = get_node(str("Left",i,"/Label"))
+			var target_label_right = get_node(str("Right",i,"/Label"))
+			target_label_left.text = first_halves[ten_words[i]]
+			target_label_right.text = second_halves[ten_words[i]]
 	
+
+
+func _on_settings_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if Input.is_action_just_pressed("Click") or event == InputEventScreenTouch and is_inside_tree():
+		get_node("optionsmenu").show()
+
+func _on_optionsmenu_close_requested() -> void:
+	get_node("optionsmenu").hide()
+
+func _on_return_pressed() -> void:
+	get_node("optionsmenu").hide()
+
+func _on_restart_pressed() -> void:
+	call_deferred("_restart_scene")
+
+func _restart_scene() -> void:
+	get_tree().change_scene_to_file("res://word.tscn")
+
+func _on_quit_pressed() -> void:
+	call_deferred("_quit_to_menu")
+	
+func _quit_to_menu() -> void:
+	get_tree().change_scene_to_file("res://mainmenu.tscn")
