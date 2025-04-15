@@ -8,25 +8,24 @@ script = ExtResource("1_k11ng")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Label" type="Label" parent="."]
-offset_left = -212.0
-offset_top = -325.0
-offset_right = 245.0
-offset_bottom = -215.0
-theme_override_font_sizes/font_size = 80
+offset_left = -228.0
+offset_top = -322.0
+offset_right = 229.0
+offset_bottom = -212.0
+theme_override_font_sizes/font_size = 60
 text = "How to Play"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
-offset_left = -212.0
+offset_left = -180.0
 offset_top = -209.0
-offset_right = 245.0
+offset_right = 180.0
 offset_bottom = 160.0
 theme_override_font_sizes/font_size = 20
 text = "
-There are ten six-letter words, broken into two chunks of six letters. You must match the first half of each word with the second half.
+There are ten six-letter words, broken into two chunks of six letters. Match the first half of each word with the second half.
 
-
-Click on a matching first and second half. You have three lives (incorrect guesses), but you won't be penalized as long as you make a real word."
+Once you have ten words matched up, you can check your guesses. You have three tries to get all ten words correct."
 horizontal_alignment = 1
 autowrap_mode = 2
 
