@@ -2,14 +2,14 @@ extends Node2D
 
 var first_halves : Array = []
 var second_halves : Array = []
-var second_position : Array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+var second_position : Array = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 	
 var left_toggled_array : Array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var right_toggled_array : Array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var proposed_left : String = ""
 var proposed_right : String = ""
 var word_array : Array = []
-var ten_words : Array = []
+var nine_words : Array = []
 var lives : int = 3
 var total_matched : int = 0
 var is_game_over : bool = false
@@ -1617,18 +1617,18 @@ func _ready() -> void:
 		first_halves.append(str(i.substr(0, 3)))
 		second_halves.append(str(i.substr(3, 3)))
 
-	ten_words = get_ten_words()
+	nine_words = get_nine_words()
 	
-	for i in ten_words.size():
+	for i in nine_words.size():
 		var target_node_left = get_node(str("Left",i,))
 		var target_node_right = get_node(str("Right",second_position[i]))
-		target_node_left.word_chunk = first_halves[ten_words[i]]
-		target_node_right.word_chunk = second_halves[ten_words[i]]
-		word_array.append(str(first_halves[ten_words[i]], second_halves[ten_words[i]]))
+		target_node_left.word_chunk = first_halves[nine_words[i]]
+		target_node_right.word_chunk = second_halves[nine_words[i]]
+		word_array.append(str(first_halves[nine_words[i]], second_halves[nine_words[i]]))
 		var target_label_left = get_node(str("Left",i,"/Label"))
 		var target_label_right = get_node(str("Right",second_position[i],"/Label"))
-		target_label_left.text = first_halves[ten_words[i]]
-		target_label_right.text = second_halves[ten_words[i]]
+		target_label_left.text = first_halves[nine_words[i]]
+		target_label_right.text = second_halves[nine_words[i]]
 		
 	##save file routines - for testing
 	##C:\Users\rsieg\AppData\Roaming\Godot\app_userdata\WordProject
@@ -1670,14 +1670,14 @@ func _process(_delta: float) -> void:
 			all_answered = false
 	get_node("CheckAnswers").disabled = !all_answered
 	
-func get_ten_words() -> Array:
+func get_nine_words() -> Array:
 	var output : Array = []
 	var proposed_output = []
 	var test_first_halves : Array = []
 	var test_second_halves : Array = []
 	
 	while output == []:
-		for i in 10:
+		for i in 9:
 			var random = randi_range(0, first_halves.size() - 1)
 			proposed_output.append(random)
 			test_first_halves.append(first_halves[random])
@@ -1740,8 +1740,7 @@ func _on_check_answers_pressed() -> void:
 		var answer7: String = str(get_node("Drop_Zone17").word_chunk, get_node("Drop_Zone37").word_chunk)
 		var answer8 : String = str(get_node("Drop_Zone18").word_chunk, get_node("Drop_Zone38").word_chunk)
 		var answer9 : String = str(get_node("Drop_Zone19").word_chunk, get_node("Drop_Zone39").word_chunk)
-		var answer10 : String = str(get_node("Drop_Zone20").word_chunk, get_node("Drop_Zone40").word_chunk)
-		var answers : Array = [answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10]
+		var answers : Array = [answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9]
 		
 		var correct : int = 0
 		var incorrect : int = 0
@@ -1761,7 +1760,7 @@ func _on_check_answers_pressed() -> void:
 					correct_but_not_included += 1
 			if !found:
 				incorrect += 1
-		if correct + correct_but_not_included == 10:
+		if correct + correct_but_not_included == 9:
 			you_win()
 		else:
 			lives -= 1
@@ -1772,15 +1771,15 @@ func _on_check_answers_pressed() -> void:
 				get_node("Valid").text = str("Correct: ",correct,"\nReal Word but not included: ",correct_but_not_included,"\nWrong: ",incorrect)
 				get_node("Valid").show()
 	else:
-		for i in ten_words.size():
+		for i in nine_words.size():
 			var target_node_left = get_node(str("Left",i,))
 			var target_node_right = get_node(str("Right",i))
-			target_node_left.word_chunk = first_halves[ten_words[i]]
-			target_node_right.word_chunk = second_halves[ten_words[i]]
+			target_node_left.word_chunk = first_halves[nine_words[i]]
+			target_node_right.word_chunk = second_halves[nine_words[i]]
 			var target_label_left = get_node(str("Left",i,"/Label"))
 			var target_label_right = get_node(str("Right",i,"/Label"))
-			target_label_left.text = first_halves[ten_words[i]]
-			target_label_right.text = second_halves[ten_words[i]]
+			target_label_left.text = first_halves[nine_words[i]]
+			target_label_right.text = second_halves[nine_words[i]]
 	
 
 
