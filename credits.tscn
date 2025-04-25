@@ -23,12 +23,15 @@ offset_left = -180.0
 offset_top = -162.0
 offset_right = 180.0
 offset_bottom = 207.0
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "
 Engine: Godot        
 
 Raw Word List: 
 https://www.poslarchive.com/math/scrabble/lists/common-6.html
+
+UI: Bliss GUI by Prinbles
+https://prinbles.itch.io/bliss
 
 Everything else: 
 Ryan Siegel-Stechler"

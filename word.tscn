@@ -490,39 +490,39 @@ text = "Right1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Drop_Zone11" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone11" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(-125, -197)
 script = ExtResource("4_1amgx")
 
-[node name="Drop_Zone12" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone12" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(-125, -147)
 script = ExtResource("4_1amgx")
 
-[node name="Drop_Zone13" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone13" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(-125, -97)
 script = ExtResource("4_1amgx")
 
-[node name="Drop_Zone14" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone14" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(-15, -197)
 script = ExtResource("4_1amgx")
 
-[node name="Drop_Zone15" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone15" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(-15, -147)
 script = ExtResource("4_1amgx")
 
-[node name="Drop_Zone16" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone16" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(-15, -97)
 script = ExtResource("4_1amgx")
 
-[node name="Drop_Zone17" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone17" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(95, -197)
 script = ExtResource("4_1amgx")
 
-[node name="Drop_Zone18" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone18" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(95, -147)
 script = ExtResource("4_1amgx")
 
-[node name="Drop_Zone19" type="Marker2D" parent="." groups=["answers", "left_zone"]]
+[node name="Drop_Zone19" type="Marker2D" parent="." groups=["left_zone"]]
 position = Vector2(95, -97)
 script = ExtResource("4_1amgx")
 
@@ -614,6 +614,7 @@ position = Vector2i(10, 33)
 size = Vector2i(340, 600)
 visible = false
 
+[connection signal="reveal_answers" from="." to="Left0" method="_on_node_2d_reveal_answers"]
 [connection signal="timeout" from="TimerLabel/Timer" to="TimerLabel/Timer" method="_on_timeout"]
 [connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="CheckAnswers" to="." method="_on_check_answers_pressed"]

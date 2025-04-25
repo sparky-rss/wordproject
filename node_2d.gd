@@ -14,6 +14,7 @@ var lives : int = 3
 var total_matched : int = 0
 var is_game_over : bool = false
 
+signal reveal_answers
 		
 var wordlist : Array = [
 #A
@@ -1763,6 +1764,7 @@ func _on_check_answers_pressed() -> void:
 				get_node("Valid").text = str("Correct: ",correct,"\nReal Word but not included: ",correct_but_not_included,"\nWrong: ",incorrect)
 				get_node("Valid").show()
 	else:
+		reveal_answers.emit()
 		for i in nine_words.size():
 			var target_node_left = get_node(str("Left",i,))
 			var target_node_right = get_node(str("Right",i))

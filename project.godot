@@ -22,7 +22,8 @@ window/size/viewport_height=640
 
 [gui]
 
-theme/custom_font="uid://q0b1ix2micsk"
+theme/custom="uid://df4m646ecn38p"
+theme/custom_font="uid://bnuut18wtafwy"
 
 [input]
 

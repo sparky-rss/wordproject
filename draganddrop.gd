@@ -2,6 +2,7 @@ extends Node2D
 
 @export var word_chunk : String = ""
 var targeted_rest_node : Node
+var targeted_reveal_node : Node
 var selected = false
 
 var left_rest_nodes = []
@@ -9,6 +10,8 @@ var left_words_array = []
 
 var right_rest_nodes = []
 var right_words_array = []
+
+var answer_reveal_nodes = []
 
 func _ready():
 	# Get nodes from groups
@@ -26,6 +29,7 @@ func _ready():
 	for i in right_words_array.size():
 		right_rest_nodes[i].select()
 		right_words_array[i].targeted_rest_node = right_rest_nodes[i]
+	
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if Input.is_action_just_pressed("Click") or event == InputEventScreenTouch and is_inside_tree():
@@ -102,3 +106,11 @@ func _get_word_at_rest_node(word_array, rest_node):
 		if word.targeted_rest_node == rest_node:
 			return word
 	return null
+
+
+func _on_node_2d_reveal_answers() -> void:
+	right_words_array = get_tree().get_nodes_in_group("right_word")
+	answer_reveal_nodes = get_tree().get_nodes_in_group("answers")
+	for i in right_words_array.size():
+		right_rest_nodes[i].select()
+		right_words_array[i].targeted_rest_node = answer_reveal_nodes[i]
