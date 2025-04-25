@@ -1,18 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkjpbwsbu1f"]
+[gd_scene load_steps=3 format=3 uid="uid://bkjpbwsbu1f"]
 
 [ext_resource type="Script" uid="uid://sm7gpbegacvp" path="res://mainmenu.gd" id="1_flfoa"]
+[ext_resource type="PackedScene" uid="uid://b7l08vpb3cvx1" path="res://background.tscn" id="2_d2nv2"]
 
 [node name="mainmenu" type="Node2D"]
 script = ExtResource("1_flfoa")
 
+[node name="CanvasLayer" parent="." instance=ExtResource("2_d2nv2")]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Label" type="Label" parent="."]
-offset_left = -165.0
-offset_top = -325.0
-offset_right = 139.0
-offset_bottom = -215.0
-theme_override_font_sizes/font_size = 80
+offset_left = -192.0
+offset_top = -311.0
+offset_right = 192.0
+offset_bottom = -201.0
+theme_override_font_sizes/font_size = 70
 text = "Tri Word"
 horizontal_alignment = 1
 

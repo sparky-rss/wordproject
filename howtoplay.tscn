@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b47mvmn50w1xg"]
+[gd_scene load_steps=3 format=3 uid="uid://b47mvmn50w1xg"]
 
 [ext_resource type="Script" uid="uid://b7e0ilt8c57tg" path="res://howtoplay.gd" id="1_k11ng"]
+[ext_resource type="PackedScene" uid="uid://b7l08vpb3cvx1" path="res://background.tscn" id="2_4wcgq"]
 
 [node name="howtoplay" type="Node2D"]
 script = ExtResource("1_k11ng")
@@ -12,7 +13,7 @@ offset_left = -228.0
 offset_top = -322.0
 offset_right = 229.0
 offset_bottom = -212.0
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 50
 text = "How to Play"
 horizontal_alignment = 1
 
@@ -35,5 +36,7 @@ offset_top = 219.0
 offset_right = 100.0
 offset_bottom = 294.0
 text = "Return to Main Menu"
+
+[node name="CanvasLayer" parent="." instance=ExtResource("2_4wcgq")]
 
 [connection signal="pressed" from="ReturnToMenuButton" to="." method="_on_return_to_menu_button_pressed"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbthdt1olot8g"]
+[gd_scene load_steps=4 format=3 uid="uid://cbthdt1olot8g"]
 
 [ext_resource type="Script" uid="uid://b7e0ilt8c57tg" path="res://howtoplay.gd" id="1_r18jl"]
 [ext_resource type="Texture2D" uid="uid://claq88m5tiai8" path="res://icon.svg" id="2_gryuy"]
+[ext_resource type="PackedScene" uid="uid://b7l08vpb3cvx1" path="res://background.tscn" id="3_g4wvt"]
 
 [node name="credits" type="Node2D"]
 script = ExtResource("1_r18jl")
@@ -9,11 +10,11 @@ script = ExtResource("1_r18jl")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Label" type="Label" parent="."]
-offset_left = -212.0
-offset_top = -325.0
-offset_right = 245.0
-offset_bottom = -215.0
-theme_override_font_sizes/font_size = 80
+offset_left = -227.0
+offset_top = -324.0
+offset_right = 230.0
+offset_bottom = -214.0
+theme_override_font_sizes/font_size = 60
 text = "Credits"
 horizontal_alignment = 1
 
@@ -29,7 +30,8 @@ Engine: Godot
 Raw Word List: 
 https://www.poslarchive.com/math/scrabble/lists/common-6.html
 
-Everything else: Ryan Siegel-Stechler"
+Everything else: 
+Ryan Siegel-Stechler"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -41,8 +43,10 @@ offset_bottom = 268.0
 text = "Return to Main Menu"
 
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(91, -120)
+position = Vector2(76, -128)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gryuy")
+
+[node name="CanvasLayer" parent="." instance=ExtResource("3_g4wvt")]
 
 [connection signal="pressed" from="ReturnToMenuButton" to="." method="_on_return_to_menu_button_pressed"]

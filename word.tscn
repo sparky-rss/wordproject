@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://d16vp8cv0o4ya" path="res://timer.gd" id="2_2isbp"]
 [ext_resource type="Script" uid="uid://ti876eyreec1" path="res://draganddrop.gd" id="2_5kvxf"]
 [ext_resource type="Script" uid="uid://sn14dcghr4vv" path="res://drop_zone.gd" id="4_1amgx"]
-[ext_resource type="Texture2D" uid="uid://buhqibml26g18" path="res://New Piskel-1.png (11).png" id="4_2isbp"]
 [ext_resource type="FontFile" uid="uid://q0b1ix2micsk" path="res://Courier_Prime/CourierPrime-Regular.ttf" id="4_dlft6"]
+[ext_resource type="PackedScene" uid="uid://b7l08vpb3cvx1" path="res://background.tscn" id="6_dlft6"]
 [ext_resource type="Texture2D" uid="uid://dm2phjwo4hnv8" path="res://gear.svg" id="6_rv581"]
 [ext_resource type="PackedScene" uid="uid://mkivboia63g0" path="res://optionsmenu.tscn" id="7_qlfdg"]
 
@@ -598,12 +598,7 @@ script = ExtResource("4_1amgx")
 position = Vector2(125, -97)
 script = ExtResource("4_1amgx")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
-scale = Vector2(100, 100)
-texture = ExtResource("4_2isbp")
+[node name="CanvasLayer" parent="." instance=ExtResource("6_dlft6")]
 
 [node name="Settings" type="Sprite2D" parent="."]
 position = Vector2(141, 297)
