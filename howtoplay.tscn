@@ -24,9 +24,9 @@ offset_right = 160.0
 offset_bottom = 160.0
 theme_override_font_sizes/font_size = 20
 text = "
-There are ten six-letter words, broken into two chunks of six letters. Match the first half of each word with the second half.
+There are nine six-letter words, broken into two chunks of three letters. Match the first three letters of each word with the second.
 
-Once you have ten words matched up, you can check your guesses. You have three tries to get all ten words correct."
+Once you have your words matched up, you can check your guesses. You have three tries to get all of the words correct."
 horizontal_alignment = 1
 autowrap_mode = 2
 
